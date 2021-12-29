@@ -36,7 +36,9 @@ class Item(Resource):
             return {'message': "An item with name '{}' already exists.".format(name)}, 400
 
         data = self.parser.parse_args()
-
+        # if ItemModel.find_in_store(name, data["store_id"]):
+        #     return {'message': f"An item with name {name} already exists for store ID: {data['store_id']}"}, 400
+        
         item = ItemModel(name, **data)
 
         try:
@@ -45,6 +47,7 @@ class Item(Resource):
             return {"message": "An error occurred while inserting the item."}, 500
 
         return item.json(), 201
+        
 
     @jwt_required()
     def delete(self, name):

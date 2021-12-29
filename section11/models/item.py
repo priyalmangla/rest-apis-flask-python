@@ -1,6 +1,4 @@
 from db import db
-from sqlalchemy.orm import relationship
-
 
 class ItemModel(db.Model):
     __tablename__ = 'items'
@@ -11,7 +9,6 @@ class ItemModel(db.Model):
 
     store_id = db.Column(db.Integer, db.ForeignKey('stores.id'))
     store = db.relationship('StoreModel', back_populates="items")
-    # store = relationship("StoreModel", back_populates="items")
     
     def __init__(self, name, price, store_id):
         self.name = name
@@ -41,3 +38,7 @@ class ItemModel(db.Model):
     def delete_from_db(self):
         db.session.delete(self)
         db.session.commit()
+    
+    @classmethod
+    def find_in_store(cls, name, store_id):
+        return cls.query.filter_by(name=name, store_id=store_id).first()

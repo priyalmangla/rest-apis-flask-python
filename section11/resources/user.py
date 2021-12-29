@@ -8,7 +8,7 @@ from flask_jwt_extended import (
     jwt_required
 )
 from models.user import UserModel
-from blacklist import BLACKLIST
+from blocklist import BLOCKLIST
 
 _user_parser = reqparse.RequestParser()
 _user_parser.add_argument('username',
@@ -57,7 +57,7 @@ class UserLogout(Resource):
     @jwt_required()
     def post(self):
         jti = get_jwt()['jti']
-        BLACKLIST.add(jti)
+        BLOCKLIST.add(jti)
         return {"message": "Successfully logged out"}, 200
 
 

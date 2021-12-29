@@ -3,7 +3,7 @@ from flask_restful import Api
 from flask_jwt_extended import JWTManager
 
 from db import db
-from blacklist import BLACKLIST
+from blocklist import BLOCKLIST
 from resources.user import UserRegister, UserLogin, User, TokenRefresh, UserLogout
 from resources.item import Item, ItemList
 from resources.store import Store, StoreList
@@ -20,8 +20,8 @@ JWT related configuration. The following functions includes:
 2) customize the token expired error message 
 """
 app.config['JWT_SECRET_KEY'] = 'jose'  # we can also use app.secret like before, Flask-JWT-Extended can recognize both
-app.config['JWT_BLACKLIST_ENABLED'] = True  # enable blacklist feature
-app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']  # allow blacklisting for access and refresh tokens
+app.config['JWT_BLOCKLIST_ENABLED'] = True  # enable blocklist feature
+app.config['JWT_BLOCKLIST_TOKEN_CHECKS'] = ['access', 'refresh']  # allow blocklisting for access and refresh tokens
 jwt = JWTManager(app)
 
 """
@@ -36,10 +36,10 @@ def add_claims_to_jwt(identity):
     return {'is_admin': False}
 
 
-# This method will check if a token is blacklisted, and will be called automatically when blacklist is enabled
+# This method will check if a token is blocklisted, and will be called automatically when blocklist is enabled
 @jwt.token_in_blocklist_loader
-def check_if_token_in_blacklist(jwt_header, jwt_payload):
-    return jwt_payload['jti'] in BLACKLIST
+def check_if_token_in_blocklist(jwt_header, jwt_payload):
+    return jwt_payload['jti'] in BLOCKLIST
 
 
 # The following callbacks are used for customizing jwt response/error messages.

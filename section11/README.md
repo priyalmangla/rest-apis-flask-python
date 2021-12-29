@@ -28,7 +28,7 @@ We can also add some extra data to each JWT payload, and these data are accessib
 
 ### Blacklist and token revoking
 
-We can blacklist a user or revoke a token (access token or refresh token) and disable the user from logging in and accessing a protected endpoint. Possible use cases for this feature include: if a user complains his account being compromised, or we decide to take down an existing account temporarily, we can blacklist the user and revoke the token thus prevent the user from logging in.
+We can blocklist a user or revoke a token (access token or refresh token) and disable the user from logging in and accessing a protected endpoint. Possible use cases for this feature include: if a user complains his account being compromised, or we decide to take down an existing account temporarily, we can blocklist the user and revoke the token thus prevent the user from logging in.
 
 ### Customize JWT messages
 
@@ -107,4 +107,4 @@ Talk about the differences between the error/response messages from the previous
 
 ### Blacklisting and token revoking
 
-Keep on talking about customizing callbacks, as well as security issue. Introduce blacklisting and token revoking here. 
+Keep on talking about customizing callbacks, as well as security issue. Introduce blocklisting and token revoking here. 
